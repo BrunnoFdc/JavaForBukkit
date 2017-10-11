@@ -1,0 +1,8 @@
+name: JavaForBukkit
+version: 1.0
+main: me.brunnw.jfb.Main
+
+commands:
+    site:
+    feed:
+    ultimo-jogador:
