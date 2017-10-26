@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,7 +15,6 @@ public class Main extends JavaPlugin {
 	private static int dia = 06;
 	private static int mes = 10;
 	private static int ano = 2017;
-	
 	
 	public void onEnable() {
 		
@@ -43,6 +41,24 @@ public class Main extends JavaPlugin {
 		
 	}
 	
+	public static int getVezes(String nome) {
+		
+		int vezes;
+		
+		if(Main.jp.getConfig().isSet("Vezes." + nome)) {
+
+			vezes = Main.jp.getConfig().getInt("Vezes." + nome);
+			
+		} else {
+			
+			vezes = 0;
+			
+		}
+		
+		
+		return vezes;
+		
+	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
@@ -96,6 +112,71 @@ public class Main extends JavaPlugin {
 			
 		}
 		
+		if(command.getName().equalsIgnoreCase("vezes")) { 
+			
+			if(args.length > 0) {
+				
+				String nome = args[0];
+				
+				if(getVezes(nome) > 0) {
+					
+					sender.sendMessage("§aO jogador §e" + nome + "§a entrou §e" + getVezes(nome) + "§a vezes no servidor!");
+					
+				} else {
+					
+					sender.sendMessage("§cO jogador especificado nunca entrou no servidor!");
+					
+				}
+				
+				
+			} else {
+				
+				sender.sendMessage("§4Uso correto: §c/vezes <Nome do jogador>");
+				
+			}
+			
+		}
+		
+		if(command.getName().equalsIgnoreCase("premio")) {
+			
+			if(sender.hasPermission("brunno.admin")) {
+				
+				for(Player p : Bukkit.getOnlinePlayers()) {
+					
+					p.getInventory().addItem(new ItemStack(Material.DIAMOND, 1));
+					
+				}
+				
+				sender.sendMessage("§aTodos os jogadores conectados receberam um diamante!");
+				
+			} else {
+				
+				sender.sendMessage("§4Você não tem permissão para isso!");
+				
+			}
+			
+		}
+		
+		if(command.getName().equalsIgnoreCase("limparchat")) {
+			
+			if(sender.hasPermission("brunno.admin")) {
+								
+				for(int i = 0; i < 100; i++) {
+					
+					Bukkit.broadcastMessage(" ");
+					
+				}
+				
+				Bukkit.broadcastMessage("§e§lO chat do servidor foi limpo por: §c" + sender.getName());
+								
+			} else {
+				
+				sender.sendMessage("§4Você não tem permissão para isso!");
+				
+			}
+			
+		}
+ 		
 		return false;
 		
 	}
