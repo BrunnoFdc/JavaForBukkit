@@ -1,5 +1,8 @@
 package me.brunnw.jfb;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -15,15 +18,22 @@ public class Main extends JavaPlugin {
 	private static int dia = 06;
 	private static int mes = 10;
 	private static int ano = 2017;
-	
+	public List<Setup> setuppables = new ArrayList<>();
+	public List<Player> admins = new ArrayList<>();
+
 	public void onEnable() {
 		
+		setuppables.add(new Configs());
+		setuppables.add(new Listeners());
 		jp = this;
 		Bukkit.getConsoleSender().sendMessage("§b[JavaForBukkit] §fPlugin ativado com sucesso!");  
-		Bukkit.getPluginManager().registerEvents(new Listeners(), this);
-		saveDefaultConfig();
-		saveConfig();
-		nome_do_servidor = getConfig().getString("Informacoes.Nome-do-servidor");
+		
+		for(Setup s : setuppables) {
+			
+			s.onPluginEnable();
+			
+		}
+		
 		
 		
 	}

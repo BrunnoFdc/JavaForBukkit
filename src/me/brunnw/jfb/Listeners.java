@@ -1,5 +1,6 @@
 package me.brunnw.jfb;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,8 +9,15 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class Listeners implements Listener {
+public class Listeners implements Listener, Setup {
 
+	public void onPluginEnable() {
+		
+		Bukkit.getPluginManager().registerEvents(this, Main.jp);
+		
+	}
+	
+	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		
@@ -47,7 +55,6 @@ public class Listeners implements Listener {
 
 		
 	}
-	
 	
 
 }
