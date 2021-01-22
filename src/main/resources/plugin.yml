@@ -1,0 +1,6 @@
+name: 'JavaForBukkit'
+version: '1.0'
+main: 'me.brunnofdc.javaforbukkit.JavaForBukkit'
+
+commands:
+  exemplo:
